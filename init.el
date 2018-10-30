@@ -21,7 +21,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (magit ivy helm-projectile helm projectile))))
+ '(package-selected-packages (quote (elpy magit ivy helm-projectile helm projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -52,10 +52,7 @@
 
 
 
-;; load the packaged named swiper and swiper-el.
-
-;; Nil, you will need to add this .el packages to the lisp folder
-
+;; load the packaged named swiper.
 (load "swiper.el") ;; best not to include the ending “.el” or “.elc”
 (load "swiper-helm.el") ;; best not to include the ending “.el” or “.elc”
 
@@ -65,3 +62,10 @@
 
 
 (load-theme 'manoj-dark t)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+
+(package-initialize)
+(elpy-enable)
