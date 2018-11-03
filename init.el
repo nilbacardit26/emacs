@@ -3,6 +3,13 @@
 
 ;; load emacs 24's package system. Add MELPA repository.
 
+;; install Manually:
+;; elpy
+;; ivy
+;; helm
+;; helm-projectile
+;; projectile
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
