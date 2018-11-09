@@ -1,15 +1,17 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; load emacs 24's package system. Add MELPA repository.
-
 ;; install Manually:
 ;; elpy
 ;; ivy
 ;; helm
 ;; helm-projectile
 ;; projectile
+;; dumb-jump
 ;; magit
+
+
+;; load emacs 24's package system. Add MELPA repository.
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -29,7 +31,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (elpy magit ivy helm-projectile helm projectile))))
+ '(package-selected-packages
+   (quote
+    (undo-tree pyenv-mode rg ag json-mode dumb-jump elpy magit ivy helm-projectile helm projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -42,8 +46,6 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; (setq helm-projectile-fuzzy-match nil)
-(require 'helm-projectile)
-(helm-projectile-on)
 
 (require 'helm-config)
 (helm-mode 1)
@@ -73,7 +75,24 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 (package-initialize)
 (elpy-enable)
+
+;; (setq helm-projectile-fuzzy-match nil)
+(require 'helm-projectile)
+(helm-projectile-on)
+
+(require 'epa-file)
+(epa-file-enable)
+
+(setq epa-file-select-keys nil)
+
+(defcustom dumb-jump-max-find-time
+  8
+  "Number of seconds a grep/find command can take before being warned to use ag and config."
+  :group 'dumb-jump
+:type 'integer)
+
+(dumb-jump-mode 1)
