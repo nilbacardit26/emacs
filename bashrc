@@ -141,5 +141,8 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-export PS1="${BLUE}\W${LIGHT_WHITE}\$(parse_git_branch)${YELLOW} \$(__kube_ps1)${NORMAL} \$ "
+IN=$(__kube_ps1)
+arrIN=(${IN//_/ })
+
+export PS1="${BLUE}\W${RED}\$(parse_git_branch)${YELLOW} \${arrIN[-1]}${NORMAL} \$ "
 
