@@ -77,3 +77,6 @@
         (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
 
 (dumb-jump-mode +1)
+;; Use ibuffer
+(global-set-key (kbd "C-x b") 'ibuffer)
+(global-set-key [remap list-buffers] 'ibuffer)
