@@ -80,3 +80,6 @@
 ;; Use ibuffer
 (global-set-key (kbd "C-x b") 'ibuffer)
 (global-set-key [remap list-buffers] 'ibuffer)
+
+
+(push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist)
