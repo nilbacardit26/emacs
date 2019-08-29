@@ -76,8 +76,10 @@
         (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
 
 (dumb-jump-mode +1)
+
 (undo-tree-mode 1)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
 (global-set-key [remap list-buffers] 'ibuffer)
 
 (push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist)
