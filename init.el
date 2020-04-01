@@ -1,6 +1,6 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-
+(setq ring-bell-function 'ignore)
 ;; load emacs 24's package system. Add MELPA repository.
 
 ;; Added by Package.el.  This must come before configurations of
