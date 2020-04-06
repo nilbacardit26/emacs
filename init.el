@@ -131,3 +131,6 @@
 
 (require 'company-lsp)
 (push 'company-lsp company-backends)
+
+;; Automatically activate pyenv
+(require 'pyenv-mode-auto)
