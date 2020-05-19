@@ -58,7 +58,7 @@
 (load "swiper.el") ;; best not to include the ending “.el” or “.elc”
 (load "swiper-helm.el") ;; best not to include the ending “.el” or “.elc”
 
-
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "<f2>") 'magit-status)
 
