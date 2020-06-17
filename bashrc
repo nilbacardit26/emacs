@@ -146,7 +146,7 @@ arrIN=(${IN//_/ })
 
 export PS1="${BLUE}\W${RED}\$(parse_git_branch)${YELLOW} \${arrIN[-1]}${NORMAL} \$ "
 
-cat >> ~/.inputrc <<'EOF'
+cat >> ~/.bash_history <<'EOF'
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 EOF
