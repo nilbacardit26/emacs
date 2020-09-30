@@ -134,3 +134,7 @@
 
 ;; Automatically activate pyenv
 (require 'pyenv-mode-auto)
+
+(defun my/base64-encode-region-no-break ()
+  (interactive)
+  (base64-encode-region (mark) (point) t))
