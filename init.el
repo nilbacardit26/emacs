@@ -13,8 +13,7 @@
   (require 'package)
   (add-to-list
    'package-archives
-   ;; '("melpa" . "http://stable.melpa.org/packages/") ; many packages won't show if using stable
-   '("melpa" . "http://melpa.milkbox.net/packages/")
+   '("melpa" . "http://melpa.org/packages/") ; many packages won't show if using stable
    t))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -23,7 +22,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc elpy magit ivy helm-projectile helm projectile))))
+    (jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get jedi-core exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc elpy magit ivy helm-projectile helm projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -32,8 +31,9 @@
  )
 
 (projectile-mode +1)
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;; (define-key projectile-mode-map (kbd "C-c f") 'projectile-command-map)
 
 ;; (setq helm-projectile-fuzzy-match nil)
 (require 'helm-projectile)
@@ -58,18 +58,21 @@
 (load "swiper.el") ;; best not to include the ending “.el” or “.elc”
 (load "swiper-helm.el") ;; best not to include the ending “.el” or “.elc”
 
+
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-r") 'swiper)
+(global-set-key (kbd "C-c p s g") 'helm-grep-do-git-grep)
 (global-set-key (kbd "<f2>") 'magit-status)
+
 
 
 (load-theme 'manoj-dark t)
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/"))
-
-(elpy-enable)
+             '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives
+       '("melpa" . "http://melpa.org/packages/") t)
 
 (add-hook 'shell-mode-hook
       (lambda ()
@@ -87,54 +90,53 @@
 (use-package lsp-mode :ensure t)
 ;; in case you are using client which is available as part of lsp refer to the
 ;; table bellow for the clients that are distributed as part of lsp-mode.el
-(require 'lsp-clients)
 (add-hook 'programming-mode-hook 'lsp)
 
 (use-package lsp-ui :ensure t)
 (setq lsp-ui-sideline-enable nil)
 
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-(use-package company-lsp
-  :after (company lsp-mode)
-  :config
-  (add-to-list 'company-backends 'company-lsp)
-  :custom
-  (company-lsp-async t)
-  (company-lsp-enable-snippet t))
 
 ;; https://github.com/emacs-helm/helm/issues/2175
 (customize-set-variable 'helm-ff-lynx-style-map t)
 
-
-(progn
-  ;; make buffer switch command do suggestions, also for find-file command
-  (require 'ido)
-  (ido-mode 1)
-
-  ;; show choices vertically
-  (if (version< emacs-version "25")
-      (progn
-        (make-local-variable 'ido-separator)
-        (setq ido-separator "\n"))
-    (progn
-      (make-local-variable 'ido-decorations)
-      (setf (nth 2 ido-decorations) "\n")))
-
-  ;; show any name that has the chars you typed
-  (setq ido-enable-flex-matching t)
-  ;; use current pane for newly opened file
-  (setq ido-default-file-method 'selected-window)
-  ;; use current pane for newly switched buffer
-  (setq ido-default-buffer-method 'selected-window)
-  ;; stop ido from suggesting when naming new file
-  (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil))
-
-(require 'company-lsp)
-(push 'company-lsp company-backends)
-
+(elpy-enable)
 ;; Automatically activate pyenv
 (require 'pyenv-mode-auto)
 
 (defun my/base64-encode-region-no-break ()
   (interactive)
   (base64-encode-region (mark) (point) t))
+
+
+(require 'auctex-latexmk)
+    (auctex-latexmk-setup)
+
+(defun python-prettyprint-region ()
+  (interactive)
+  (let ( (new-buffer-name "*pprint*") (selection (buffer-substring-no-properties (region-beginning) (region-end))))
+    (if (bufferp new-buffer-name)
+      (kill-buffer new-buffer-name))
+    (call-process
+     "python"
+     nil
+     new-buffer-name nil
+     "-c"
+     "import ast; import json; import sys; x=ast.literal_eval(sys.argv[1]); print(json.dumps(x,indent=4))"
+     selection)
+    (pop-to-buffer new-buffer-name)))
+
+(set-face-attribute 'default nil :height 165)
+
+(setq org-agenda-files (list "~/Development/iskra/agenda.org"))
+
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+(setq exec-path (append exec-path '("~/.pyenv/bin")))
+
+(setenv "WORKON_HOME" "~/.pyenv/versions")
+
+(define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)
+(setq elpy-rpc-virtualenv-path 'current)
