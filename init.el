@@ -21,8 +21,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get jedi-core exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc elpy magit ivy helm-projectile helm projectile))))
+   '(jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get jedi-core exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc elpy magit ivy helm-projectile helm projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -39,7 +38,7 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 
-(require 'helm-config)
+;; (require 'helm-config)
 (helm-mode 1)
 (define-key global-map [remap find-file] 'helm-find-files)
 (define-key global-map [remap occur] 'helm-occur)
@@ -100,8 +99,6 @@
 (customize-set-variable 'helm-ff-lynx-style-map t)
 
 (elpy-enable)
-;; Automatically activate pyenv
-(require 'pyenv-mode-auto)
 
 (defun my/base64-encode-region-no-break ()
   (interactive)
