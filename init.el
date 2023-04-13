@@ -9,6 +9,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(add-to-list 'load-path "~/.emacs.d/plugins")
+(require 'python-mode)
+
 (when (>= emacs-major-version 24)
   (require 'package)
   (add-to-list
@@ -21,7 +24,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get jedi-core exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc elpy magit ivy helm-projectile helm projectile)))
+   '(python-mode elpy helm-projectile jedi-core helm-core jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc magit ivy helm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
