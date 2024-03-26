@@ -1,3 +1,9 @@
+(setq package-enable-at-startup nil)
+
+;; Shell colors
+(require 'ansi-color)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (setq ring-bell-function 'ignore)
@@ -8,9 +14,6 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-
-(add-to-list 'load-path "~/.emacs.d/plugins")
-(require 'python-mode)
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -24,7 +27,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(python-mode elpy helm-projectile jedi-core helm-core jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc magit ivy helm)))
+   '(quelpa zenburn-theme python-mode elpy helm-projectile jedi-core helm-core jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc magit ivy helm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -68,7 +71,8 @@
 
 
 
-(load-theme 'manoj-dark t)
+;; (load-theme 'manoj-dark t)
+(load-theme 'zenburn t) ; new fav
 
 (require 'package)
 (add-to-list 'package-archives
@@ -125,7 +129,7 @@
      selection)
     (pop-to-buffer new-buffer-name)))
 
-(set-face-attribute 'default nil :height 165)
+(set-face-attribute 'default nil :height 120)
 
 (setq org-agenda-files (list "~/Development/iskra/agenda.org"))
 
@@ -140,3 +144,26 @@
 
 (define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)
 (setq elpy-rpc-virtualenv-path 'current)
+
+(global-set-key (kbd "M-l") 'flymake-goto-next-error)
+(global-set-key (kbd "M-p") 'flymake-goto-prev-error)
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; here goes the variables
+;; your key (setq chatgpt-shell-openai-key "my key")
+(load "~/.emacs.d/variables.el")
+
+(global-set-key (kbd "C-c e") 'chatgpt-shell-explain-code)
+(global-set-key (kbd "C-c q") 'chatgpt-shell)
