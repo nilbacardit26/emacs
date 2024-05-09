@@ -27,7 +27,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(quelpa zenburn-theme python-mode elpy helm-projectile jedi-core helm-core jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc magit ivy helm)))
+   '(quelpa zenburn-theme python-mode elpy helm-projectile jedi-core helm-core jenkinsfile-mode jedi fingers request-deferred anaconda-mode python-environment auto-complete concurrent ctable epc el-get exec-path-from-shell virtualenvwrapper zoom auctex typescript-mode ag counsel projectile-speedbar go-mode lsp-ui lsp-mode use-package flycheck-demjsonlint flymake-json dumb-jump flycheck-pycheckers json-mode dockerfile-mode groovy-imports groovy-mode butler jenkins docker yaml-mode helm-ag undo-tree 0xc magit ivy helm))
+ '(safe-local-variable-values '((encoding . utf-8))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
